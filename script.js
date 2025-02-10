@@ -1,35 +1,32 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const modal = document.getElementById("infoModal");
-    const openModalBtn = document.getElementById("openModalBtn");
-    const closeModalBtn = document.getElementById("closeModalBtn");
-    const closeModalBtn2 = document.getElementById("closeModalBtn2");
+    console.log("JavaScript berhasil dimuat!");
+    
+    // Cek apakah elemen ada sebelum mengaksesnya
+    const uniformCards = document.querySelectorAll('.uniform-card');
+    if (uniformCards.length > 0) {
+        uniformCards.forEach(card => {
+            card.addEventListener('mouseenter', function () {
+                this.querySelector('.uniform-details').style.display = 'flex';
+            });
 
-    // Fungsi membuka modal
-    openModalBtn.addEventListener("click", function () {
-        modal.style.display = "flex";
-    });
-
-    // Fungsi menutup modal
-    function closeModal() {
-        modal.style.display = "none";
+            card.addEventListener('mouseleave', function () {
+                this.querySelector('.uniform-details').style.display = 'none';
+            });
+        });
+    } else {
+        console.warn("Elemen .uniform-card tidak ditemukan!");
     }
 
-    closeModalBtn.addEventListener("click", closeModal);
-    closeModalBtn2.addEventListener("click", closeModal);
-
-    // Tutup modal jika klik di luar
-    window.addEventListener("click", function (event) {
-        if (event.target === modal) {
-            closeModal();
+    // Efek Scroll untuk Visi & Misi
+    const visiMisi = document.querySelector(".visi-misi-container");
+    function checkScroll() {
+        if (visiMisi) {
+            let position = visiMisi.getBoundingClientRect().top;
+            let screenHeight = window.innerHeight;
+            if (position < screenHeight - 100) {
+                visiMisi.classList.add("visible");
+            }
         }
-    });
-
-    // Tutup modal dengan tombol ESC
-    document.addEventListener("keydown", function (event) {
-        if (event.key === "Escape") {
-            closeModal();
-        }
-    });
-
-
+    }
+    window.addEventListener("scroll", checkScroll);
 });
